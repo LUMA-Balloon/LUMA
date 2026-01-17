@@ -13,8 +13,8 @@ void BNO055::init() {
     while(!bno.begin())
     {
         logger.writeErrorMessage("BNO055 was not found.");
-        // errorLED.timedColor(colorPresets.magenta, 250);
-        // errorLED.timedColor(colorPresets.red, 250);
+        errorLED.timedColor(colorPresets.magenta, 250);
+        errorLED.timedColor(colorPresets.red, 250);
     }
     // Calibration code
     int eeAddress = 0;
@@ -23,16 +23,14 @@ void BNO055::init() {
     adafruit_bno055_offsets_t calibrationData;
     sensor_t sensor;
     bno.getSensor(&sensor);
-    if (bnoID != sensor.sensor_id)
-    {
+    if (bnoID != sensor.sensor_id) {
         logger.writeErrorMessage("BNO055 calibration data was not found.");
-/*      errorLED.colorSweep(colorPresets.red, 250);
+        errorLED.colorSweep(colorPresets.red, 250);
         errorLED.colorSweep(colorPresets.off, 250);
         errorLED.colorSweep(colorPresets.red, 250);
         errorLED.colorSweep(colorPresets.off, 250);
-  */   }
-    else
-    {
+    }
+    else {
         eeAddress += sizeof(long);
         EEPROM.get(eeAddress, calibrationData);
         bno.setSensorOffsets(calibrationData);

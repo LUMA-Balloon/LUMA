@@ -70,8 +70,8 @@ void OpenLog::writeTelemetry(Data &data) {
 void SPILogger::init() {
     while (!SD.begin(config.pins.sdCSPin)) {
         // Error message cannot be written to SD card before it is initialized.
-        // errorLED.timedColor(colorPresets.blue, 250);
-        // errorLED.timedColor(colorPresets.green, 250);
+        errorLED.timedColor(colorPresets.blue, 250);
+        errorLED.timedColor(colorPresets.green, 250);
     }
     // Start with number 1
     unsigned short int fileNumber = 1;
@@ -97,8 +97,8 @@ void SPILogger::init() {
     // Once we find a file name that doesn't exist, use it!
     while (!(telemetryFile = SD.open(fileName, FILE_WRITE))) {
         // Error message cannot be written to SD card before it is initialized.
-        // errorLED.timedColor(colorPresets.magenta, 250);
-        // errorLED.timedColor(colorPresets.blue, 250);
+        errorLED.timedColor(colorPresets.magenta, 250);
+        errorLED.timedColor(colorPresets.blue, 250);
     }
     strcpy(fileName, config.secondaryTelemetryFilePrefix);
     sprintf(fileNumberStr, "%0*d", 5, fileNumber);
@@ -106,8 +106,8 @@ void SPILogger::init() {
     strcat(fileName, ".txt");
     while (!(secondaryTelemetryFile = SD.open(fileName, FILE_WRITE))) {
         // Error message cannot be written to SD card before it is initialized.
-        // errorLED.timedColor(colorPresets.magenta, 125);
-        // errorLED.timedColor(colorPresets.blue, 125);
+        errorLED.timedColor(colorPresets.magenta, 125);
+        errorLED.timedColor(colorPresets.blue, 125);
     }
     strcpy(fileName, config.errorMessageFilePrefix);
     sprintf(fileNumberStr, "%0*d", 5, fileNumber);
@@ -115,8 +115,8 @@ void SPILogger::init() {
     strcat(fileName, ".txt");
     while (!(errorMessageFile = SD.open(fileName, FILE_WRITE))) {
         // Error message cannot be written to SD card before it is initialized.
-        // errorLED.timedColor(colorPresets.magenta, 63);
-        // errorLED.timedColor(colorPresets.blue, 63);
+        errorLED.timedColor(colorPresets.magenta, 63);
+        errorLED.timedColor(colorPresets.blue, 63);
     }
 }
 

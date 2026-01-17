@@ -6,9 +6,10 @@
 #include "data.h"
 #include "board-io/sensors.h"
 #include "board-io/telemetry.h"
+#include "core/errorLED.h"
 
 extern Config config;
 extern Data data;
 extern Sensors sensors; 
 extern SPILogger logger;
-// extern ErrorLED errorLED; // TODO error handling
+extern ErrorLED errorLED; 

@@ -30,15 +30,15 @@ void pvtCallback(UBX_NAV_PVT_data_t *ubxDataStruct) {
 void M9N::init() {
     while (!m9n.begin()) {
         logger.writeErrorMessage("M9N was not found.");
-        // errorLED.timedColor(colorPresets.red, 250);
-        // errorLED.timedColor(colorPresets.blue, 250);
+        errorLED.timedColor(colorPresets.red, 250);
+        errorLED.timedColor(colorPresets.blue, 250);
     }
     m9n.setI2COutput(COM_TYPE_UBX);
     m9n.setNavigationFrequency(5);
     if (!m9n.setDynamicModel(DYN_MODEL_AIRBORNE4g)) {
         logger.writeErrorMessage("M9N Dynamic Model could not be set.");
-        // errorLED.timedColor(colorPresets.cyan, 250);
-        // errorLED.timedColor(colorPresets.red, 250);
+        errorLED.timedColor(colorPresets.cyan, 250);
+        errorLED.timedColor(colorPresets.red, 250);
     }
     m9n.saveConfiguration();
     m9n.setAutoPVTcallbackPtr(&pvtCallback);
@@ -50,16 +50,16 @@ void M9N::init() {
         m9n.checkCallbacks();
         switch (mostRecentSIV) {
             case 0:
-                // errorLED.timedColor(colorPresets.red, 250);
-                // errorLED.timedColor(colorPresets.green, 250);
+                errorLED.timedColor(colorPresets.red, 250);
+                errorLED.timedColor(colorPresets.green, 250);
                 break;
             case 1:
-                // errorLED.timedColor(colorPresets.red, 125);
-                // errorLED.timedColor(colorPresets.green, 125);
+                errorLED.timedColor(colorPresets.red, 125);
+                errorLED.timedColor(colorPresets.green, 125);
                 break;
             case 2:
-                // errorLED.timedColor(colorPresets.red, 60);
-                // errorLED.timedColor(colorPresets.green, 60);
+                errorLED.timedColor(colorPresets.red, 60);
+                errorLED.timedColor(colorPresets.green, 60);
                 break;
             default:
                 sivCheck = false;
