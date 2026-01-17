@@ -2,8 +2,11 @@
 #include <string>
 
 enum FlightState {
-    // TODO CHANGE TO STATE MACHINE
+    INITIALIZATION,
     STANDBY,
+    LAUNCH_READY,
+    FLIGHT,
+    LANDED,
 };
 
 struct Vector {
@@ -43,7 +46,9 @@ struct Atmospheric {
     float humidity;     // percent
 };
 
-// TODO add a target 
+struct Target {
+    float altitude;     // Perchance // m MSL
+}
 
 struct Data {
     unsigned long packetCount = 0;
@@ -54,4 +59,5 @@ struct Data {
     Vector orientation; // deg
     GPS gps;
     Atmospheric atmo;
+    Target target;
 };
