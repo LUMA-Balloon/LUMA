@@ -48,7 +48,7 @@ struct Atmospheric {
 
 struct Target {
     float altitude;     // Perchance // m MSL
-}
+};
 
 struct Data {
     unsigned long packetCount = 0;
