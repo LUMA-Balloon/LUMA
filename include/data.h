@@ -9,12 +9,24 @@ enum FlightState {
     LANDED,
 };
 
+enum VentState {
+    OPEN,
+    CLOSE,
+};
+
+enum DropState {
+    ATTACH,
+    DETACH,
+};
+
+
 struct Vector {
     // Unitless here. Units defined elsewhere.
     double x;
     double y;
     double z;
 };
+
 
 struct Position {
     double lat;  // DD.dddd
@@ -50,6 +62,11 @@ struct Target {
     float altitude;     // Perchance // m MSL
 };
 
+struct VentDrop { // Defaulted to attached and closed
+    VentState ventState = CLOSE;
+    DropState dropState = ATTACH;
+};
+
 struct Data {
     unsigned long packetCount = 0;
     unsigned long missionTime = 0;  // ms
@@ -60,4 +77,5 @@ struct Data {
     GPS gps;
     Atmospheric atmo;
     Target target;
+    VentDrop ventDrop;
 };
