@@ -144,7 +144,11 @@ bool LRC::getPayloadCommand() {
     // Initializing the connection with the LRC module
     Wire.beginTransmission(address);
     Wire.write(PAYLOAD_COMMAND_TRANSFER);
-    Wire.endTransmission();
+
+    // Checking for an error on transmission
+    if (Wire.endTransmission() != 0) {
+        return false;
+    }
 
     // The number of bytes we want 
     int requestLength = 2; // This will be updated later, right now we just have one byte: the payload ID
