@@ -1,3 +1,6 @@
+// Might it be a good idea to force all of these to be a fixed size?
+// Then we can request that many bytes over I2C easily
+
 // These will be updated to real numbers later
 enum TargetAddresses {
     LONG_RANGE_COMMS = 0,
@@ -18,7 +21,7 @@ enum Secret {
     STINKY = 0
 };
 
-// Added by Sam
+// Added by Sam, we can remove if not needed
 enum i2cAction {
     HEARTBEAT = 0,
     DATA_TRANSFER = 0,

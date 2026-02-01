@@ -6,7 +6,7 @@
 bool ventStateGlobal;
 bool dropStateGlobal;
 
-void RxHandler(int numBytes){
+void RxHandler(int numBytes){  // ! Won't we have to also check to see if it is a state request so we can return the current state?
   byte RxByte;
   while(Wire.available()){
     RxByte = Wire.read();
