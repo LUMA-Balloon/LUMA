@@ -20,6 +20,7 @@ enum Secret {
 
 // Added by Sam
 enum i2cAction {
+    HEARTBEAT = 0,
     DATA_TRANSFER = 0,
     PAYLOAD_DATA_TRANSFER = 0,
     COMMAND_TRANSFER = 0,
