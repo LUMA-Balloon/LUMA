@@ -3,7 +3,7 @@ class Module {
 public: 
    bool isConnected(); 
 
-private:
-    char address;
+protected:
+    char address; 
 
 };

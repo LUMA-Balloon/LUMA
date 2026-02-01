@@ -11,7 +11,7 @@
 bool LRC::setSensorData() {
 
 
-    Wire.beginTransmission(LONG_RANGE_COMMS); 
+    Wire.beginTransmission(address); 
 
     // The type of transmission
     Wire.write(DATA_TRANSFER);
@@ -74,7 +74,7 @@ bool LRC::setSensorData() {
 bool LRC::getCommand() {
 
     // Initializing the connection with the LRC module
-    Wire.beginTransmission(LONG_RANGE_COMMS);
+    Wire.beginTransmission(address);
     Wire.write(COMMAND_TRANSFER);
     Wire.endTransmission();
 
@@ -84,7 +84,7 @@ bool LRC::getCommand() {
     int requestLength = 5;
 
     // Getting the actual data
-    Wire.requestFrom(LONG_RANGE_COMMS, requestLength);
+    Wire.requestFrom(address, requestLength);
 
     for (int byteNum = 0; byteNum < requestLength; byteNum++) {
 
@@ -142,14 +142,14 @@ bool LRC::getCommand() {
 bool LRC::getPayloadCommand() {
 
     // Initializing the connection with the LRC module
-    Wire.beginTransmission(LONG_RANGE_COMMS);
+    Wire.beginTransmission(address);
     Wire.write(PAYLOAD_COMMAND_TRANSFER);
     Wire.endTransmission();
 
     // The number of bytes we want 
     int requestLength = 2; // This will be updated later, right now we just have one byte: the payload ID
     
-    Wire.requestFrom(LONG_RANGE_COMMS, requestLength);
+    Wire.requestFrom(address, requestLength);
    
     // TODO Update this for our first payload
 
@@ -173,7 +173,7 @@ bool LRC::getPayloadCommand() {
 
 bool LRC::setPayloadData() {
 
-    Wire.beginTransmission(LONG_RANGE_COMMS);
+    Wire.beginTransmission(address);
     Wire.write(PAYLOAD_DATA_TRANSFER);
     Wire.endTransmission();
 

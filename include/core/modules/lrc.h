@@ -16,4 +16,5 @@ public:
 
     // Gets the most recent payload command recieved from the radio and saves it in data.
     bool getPayloadCommand();
+    
 };
