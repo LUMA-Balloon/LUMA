@@ -59,10 +59,11 @@ struct Atmospheric {
 };
 
 struct Target {
-    float altitude;     // Perchance // m MSL
+    float altitude;         // Perchance // m MSL
+    VentDropState ventDrop; // Where we are trying to go 
 };
 
-struct VentDrop { // Defaulted to attached and closed
+struct VentDropState { // Defaulted to attached and closed
     VentState ventState = CLOSE;
     DropState dropState = ATTACH;
 };
@@ -77,5 +78,5 @@ struct Data {
     GPS gps;
     Atmospheric atmo;
     Target target;
-    VentDrop ventDrop;
+    VentDropState ventDrop;
 };
