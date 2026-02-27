@@ -1,5 +1,3 @@
-// Might it be a good idea to force all of these to be a fixed size?
-// Then we can request that many bytes over I2C easily
 
 // These will be updated to real numbers later
 enum TargetAddresses {
