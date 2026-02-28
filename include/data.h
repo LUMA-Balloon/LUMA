@@ -58,15 +58,16 @@ struct Atmospheric {
     float humidity;     // percent
 };
 
+struct VentDropState { // Defaulted to attached and closed
+    VentState ventState = CLOSE;
+    DropState dropState = ATTACH;
+};
+
 struct Target {
     float altitude;         // Perchance // m MSL
     VentDropState ventDrop; // Where we are trying to go 
 };
 
-struct VentDropState { // Defaulted to attached and closed
-    VentState ventState = CLOSE;
-    DropState dropState = ATTACH;
-};
 
 struct Data {
     unsigned long packetCount = 0;

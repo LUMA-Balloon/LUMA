@@ -2,8 +2,8 @@
 #include <core/board-io/sensors.h>
 
 struct Pins {
-  const int clockwise = 15;
-  const int counterclockwise = 14;
+  // const int clockwise = 15;
+  // const int counterclockwise = 14;
   const int sideLed = 16;
 //   const int redLed = 23;
 //   const int greenLed = 3;
@@ -22,7 +22,7 @@ struct BaudRates {
 };
 
 struct WaitTimes {
-  const unsigned long stabilization = 5000; // ms
+  // const unsigned long stabilization = 5000; // ms
   const unsigned long burst = 15000;  // ms
   const unsigned long landed = 10000; // ms
 };

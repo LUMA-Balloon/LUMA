@@ -6,6 +6,10 @@
 bool ventStateGlobal;
 bool dropStateGlobal;
 
+int ventLED = 16;
+int dropLED = 17;
+
+
 void RxHandler(int numBytes){  // ! Won't we have to also check to see if it is a state request so we can return the current state?
   byte RxByte;
   while(Wire.available()){
@@ -27,6 +31,11 @@ void RxHandler(int numBytes){  // ! Won't we have to also check to see if it is 
   }else{
     dropStateGlobal = false;
   }
+
+  // Testing stuff for I2C
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(500);
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 void TxHandler(void){
@@ -39,6 +48,9 @@ void setup() {
   //Wire.begin(0x69);
   Wire.onReceive(RxHandler);
   Wire.onRequest(TxHandler);
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(ventLED, OUTPUT);
+  pinMode(dropLED, OUTPUT);
 }
 
 void loop(){
@@ -48,14 +60,18 @@ void loop(){
   //If ventState is true, open. Otherwise close
   if(ventState){
     //Open Vent
+    digitalWrite(ventLED, HIGH);
   }else{
     //Close Vent
+    digitalWrite(ventLED, LOW);
   }
 
   //If dropState is true, detatch
   if(dropState){
     //Open drop
+    digitalWrite(dropLED, HIGH); 
   }else{
     //close drop
+    digitalWrite(dropLED, LOW);
   }
 }
