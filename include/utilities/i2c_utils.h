@@ -20,6 +20,10 @@ float toFloat(Bytes input); // I'm not quite sure why I made this because we alr
 template <typename T>
 bool send(TwoWire wire, int address, T toSend);
 
+// The same as the basic send, but this takes an array of Bytes objects to send
+// This allows for sending multiple values in the same call
+bool send(TwoWire wire, int address, Bytes* toSend, int length);
+
 
 
 
