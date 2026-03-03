@@ -60,9 +60,15 @@ bool send(TwoWire wire, int address, T toSend) {
     wire.write(bytes.data, bytes.length);
 
     // The transaction was successful if we get a 0 from the end transmission
-    if (wire.endTransmission() != 0) {
-        return false; 
-    }
+    return wire.endTransmission() == 0;
 
 }
 
+
+bool send(TwoWire wire, int address, Bytes* toSend, int length) {
+    wire.beginTransmission(address);
+    for (int i = 0; i < length; i++) {
+        wire.write(toSend[i].data, toSend[i].length);
+    }
+    return wire.endTransmission() == 0;
+}

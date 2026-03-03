@@ -1,12 +1,9 @@
 #include "core/modules/lrc.h"
 #include "i2c_enums.h"
+#include "utilities/i2c_utils.h"
 #include <Wire.h>
 #include "core/core.h"
 #include "data.h"
-
-// ? Are we going to be parsing each incoming piece of data with a name in front of it?
-// I mean, are we just sending everything in CSV format or are we adding labels?
-// Here, I have added labels, but they should be simple to remove if needed
 
 bool LRC::setSensorData() {
 
@@ -185,4 +182,78 @@ bool LRC::setPayloadData() {
 
     return false;
 
+}
+
+// Individual setters
+
+bool LRC::setPacketCount() {
+    Wire.begin(address);
+    Wire.write(data.packetCount);
+    return Wire.endTransmission() == 0;
+
+}
+bool LRC::setMissionTime() {
+    Wire.begin(address);
+    Wire.write(data.missionTime);
+    return Wire.endTransmission() == 0;
+}
+bool LRC::setFlightState() {
+    Wire.begin(address);
+    Wire.write(data.state);
+    return Wire.endTransmission() == 0;
+}
+// Sets acceleration (x,y,z)
+bool LRC::setAcceleration() {
+    Bytes* toSend = new Bytes[3];
+    toSend[0] = toBytes(data.acceleration.x);
+    toSend[1] = toBytes(data.acceleration.y);
+    toSend[2] = toBytes(data.acceleration.z);
+    return send(Wire, address, toSend, 3);
+}
+bool LRC::setGyro() {
+    Bytes* toSend = new Bytes[3];
+    toSend[0] = toBytes(data.gyro.x);
+    toSend[1] = toBytes(data.gyro.y);
+    toSend[2] = toBytes(data.gyro.z);
+    return send(Wire, address, toSend, 3);
+}
+bool LRC::setOrientation() {
+    Bytes* toSend = new Bytes[3];
+    toSend[0] = toBytes(data.orientation.x);
+    toSend[1] = toBytes(data.orientation.y);
+    toSend[2] = toBytes(data.orientation.z);
+    return send(Wire, address, toSend, 3);
+}
+// GPS position (lat, long, alt)
+bool LRC::setPosition() {
+    Bytes* toSend = new Bytes[3];
+    toSend[0] = toBytes(data.gps.pos.lat);
+    toSend[1] = toBytes(data.gps.pos.lon);
+    toSend[2] = toBytes(data.gps.pos.alt);
+    return send(Wire, address, toSend, 3);
+} 
+// GPS UTC Time (year, month, day, hour, minutes, second)
+bool LRC::setUTCTime() {
+    Bytes* toSend = new Bytes[6];
+    toSend[0] = toBytes(data.gps.time.year);
+    toSend[1] = toBytes(data.gps.time.month);
+    toSend[2] = toBytes(data.gps.time.day);
+    toSend[3] = toBytes(data.gps.time.hour);
+    toSend[4] = toBytes(data.gps.time.minute);
+    toSend[5] = toBytes(data.gps.time.second);
+    return send(Wire, address, toSend, 6);
+}
+bool LRC::setSIV() {
+    Wire.begin(address);
+    Wire.write(data.gps.SIV);
+    return Wire.endTransmission() == 0;
+}
+// Atmospheric data (pressure, temperature, altitude, humidity)
+bool LRC::setAtmoData() {
+    Bytes* toSend = new Bytes[3];
+    toSend[0] = toBytes(data.atmo.pressure);
+    toSend[1] = toBytes(data.atmo.temperature);
+    toSend[2] = toBytes(data.atmo.alt);
+    toSend[3] = toBytes(data.atmo.humidity);
+    return send(Wire, address, toSend, 3);
 }
