@@ -1,3 +1,4 @@
+#pragma once
 
 // These will be updated to real numbers later
 enum TargetAddresses {
