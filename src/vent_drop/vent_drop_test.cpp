@@ -37,37 +37,37 @@ void RxHandler(int numBytes){
 
   Serial.println(RxByte, HEX);
 
-  // byte rxBytes[16];
-  // int index = 0;
+  byte rxBytes[16];
+  int index = 0;
 
 
-  // while(Wire.available()){
-  //   rxBytes[index] = (byte)Wire.read();
-  //   index += 1;
+  while(Wire.available()){
+    rxBytes[index] = (byte)Wire.read();
+    index += 1;
 
-  // }
+  }
   
-  // Serial.print("Got bytes:");
-  // Serial.println(numBytes);
+  Serial.print("Got bytes:");
+  Serial.println(numBytes);
 
-  // // Creating a Bytes object
-  // Bytes toDecode = {
-  //   rxBytes,
-  //   numBytes
-  // };
+  // Creating a Bytes object
+  Bytes toDecode = {
+    rxBytes,
+    numBytes
+  };
  
-  // for ( int i = 0; i < numBytes; i++) {
-  //   Serial.print((int)rxBytes[i], HEX);
-  // }
-  // Serial.println();
+  for ( int i = 0; i < numBytes; i++) {
+    Serial.print((int)rxBytes[i], HEX);
+  }
+  Serial.println();
 
-  // // Trying to decode it as a double
-  // Serial.print("(double): ");
-  // Serial.print(String(toDouble(toDecode)));
-  // Serial.print("(int): ");
-  // Serial.print(String(toInt(toDecode)));
-  // Serial.print("(float): ");
-  // Serial.println(String(toFloat(toDecode)));
+  // Trying to decode it as a double
+//   Serial.print("(double): ");
+//   Serial.print(String(toDouble(toDecode)));
+//   Serial.print("(int): ");
+//   Serial.print(String(toInt(toDecode)));
+//   Serial.print("(float): ");
+//   Serial.println(String(toFloat(toDecode)));
 
 
 }
@@ -77,38 +77,71 @@ void TxHandler(void){
   //Wire.write(TxByte);
 }
 
+// Commented for testing servos
+// void setup() {
+
+//   Serial.begin(9600);
+//   Wire.begin(VENT_DROP);
+//   //Wire.begin(0x69);
+//   Wire.onReceive(RxHandler);
+//   Wire.onRequest(TxHandler);
+//   pinMode(LED_BUILTIN, OUTPUT);
+//   pinMode(ventLED, OUTPUT);
+//   pinMode(dropLED, OUTPUT);
+// }
+
+// void loop() {
+//   bool ventState = ventStateGlobal;
+//   bool dropState = dropStateGlobal;
+//   digitalWrite(LED_BUILTIN, HIGH);
+
+//   //If ventState is true, open. Otherwise close
+//   if(ventState){
+//     //Open Vent
+//     digitalWrite(ventLED, HIGH);
+//   }else{
+//     //Close Vent
+//     digitalWrite(ventLED, LOW);
+//   }
+
+//   //If dropState is true, detatch
+//   if(dropState){
+//     //Open drop
+//     digitalWrite(dropLED, HIGH); 
+//   }else{
+//     //close drop
+//     digitalWrite(dropLED, LOW);
+//   }
+// }
+
+
+
+// Servo testing
+const int dropEnable = 8;
+const int dropServoPin = 7;
+
 void setup() {
 
-  Serial.begin(9600);
-  Wire.begin(VENT_DROP);
-  //Wire.begin(0x69);
-  Wire.onReceive(RxHandler);
-  Wire.onRequest(TxHandler);
+  pinMode(dropEnable, OUTPUT);
+  pinMode(dropServoPin, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(ventLED, OUTPUT);
-  pinMode(dropLED, OUTPUT);
+
 }
 
 void loop() {
-  bool ventState = ventStateGlobal;
-  bool dropState = dropStateGlobal;
+
+  digitalWrite(dropEnable, HIGH);
   digitalWrite(LED_BUILTIN, HIGH);
 
-  //If ventState is true, open. Otherwise close
-  if(ventState){
-    //Open Vent
-    digitalWrite(ventLED, HIGH);
-  }else{
-    //Close Vent
-    digitalWrite(ventLED, LOW);
+  for (int i = 0; i < 1023; i++) {
+    digitalWrite(dropServoPin, i);
+    delay(10);
   }
-
-  //If dropState is true, detatch
-  if(dropState){
-    //Open drop
-    digitalWrite(dropLED, HIGH); 
-  }else{
-    //close drop
-    digitalWrite(dropLED, LOW);
+  delay(1000);
+  digitalWrite(LED_BUILTIN, LOW);
+  for (int i = 0; i < 1023; i++) {
+    digitalWrite(dropServoPin, i);
+    delay(10);
   }
+  delay(1000);
 }
