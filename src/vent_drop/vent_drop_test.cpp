@@ -114,11 +114,15 @@ void TxHandler(void){
 //   }
 // }
 
-
+#include <Servo.h>
 
 // Servo testing
 const int dropEnable = 8;
 const int dropServoPin = 7;
+
+Servo myServo;
+int pos;
+
 
 void setup() {
 
@@ -126,22 +130,38 @@ void setup() {
   pinMode(dropServoPin, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
 
+  myServo.attach(dropServoPin);
+  
+  pos = 0;
 }
 
 void loop() {
 
-  digitalWrite(dropEnable, HIGH);
-  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(dropEnable, LOW);
+  // digitalWrite(LED_BUILTIN, HIGH);
+  // for (int i = 0; i < 1023; i++) {
+  //   digitalWrite(dropServoPin, i);
+  //   delay(20);
+  // }
+  // digitalWrite(LED_BUILTIN, LOW);
+  // delay(1000);
+  // digitalWrite(LED_BUILTIN, HIGH);
+  // for (int i = 0; i < 1023; i++) {
+  //   digitalWrite(dropServoPin, i);
+  //   delay(20);
+  // }
+  // digitalWrite(LED_BUILTIN, LOW);
+  // delay(1000);
 
-  for (int i = 0; i < 1023; i++) {
-    digitalWrite(dropServoPin, i);
-    delay(10);
+    for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
+    // in steps of 1 degree
+    myServo.write(pos);              // tell servo to go to position in variable 'pos'
+    delay(15);                       // waits 15ms for the servo to reach the position
   }
-  delay(1000);
-  digitalWrite(LED_BUILTIN, LOW);
-  for (int i = 0; i < 1023; i++) {
-    digitalWrite(dropServoPin, i);
-    delay(10);
+  digitalWrite(LED_BUILTIN, HIGH);
+  for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+    myServo.write(pos);              // tell servo to go to position in variable 'pos'
+    delay(15);                       // waits 15ms for the servo to reach the position
   }
-  delay(1000);
+  digitalWrite(LED_BUILTIN, HIGH);
 }

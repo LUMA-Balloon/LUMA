@@ -208,21 +208,24 @@ bool LRC::setAcceleration() {
     toSend[0] = toBytes(data.acceleration.x);
     toSend[1] = toBytes(data.acceleration.y);
     toSend[2] = toBytes(data.acceleration.z);
-    return send(Wire, address, toSend, 3);
+    // return yell(address, toSend, 3);
+    return false;
 }
 bool LRC::setGyro() {
     Bytes* toSend = new Bytes[3];
     toSend[0] = toBytes(data.gyro.x);
     toSend[1] = toBytes(data.gyro.y);
     toSend[2] = toBytes(data.gyro.z);
-    return send(Wire, address, toSend, 3);
+    // return yell(address, toSend, 3);
+    return false;
 }
 bool LRC::setOrientation() {
     Bytes* toSend = new Bytes[3];
     toSend[0] = toBytes(data.orientation.x);
     toSend[1] = toBytes(data.orientation.y);
     toSend[2] = toBytes(data.orientation.z);
-    return send(Wire, address, toSend, 3);
+    // return yell(address, toSend, 3);
+    return false;
 }
 // GPS position (lat, long, alt)
 bool LRC::setPosition() {
@@ -230,7 +233,8 @@ bool LRC::setPosition() {
     toSend[0] = toBytes(data.gps.pos.lat);
     toSend[1] = toBytes(data.gps.pos.lon);
     toSend[2] = toBytes(data.gps.pos.alt);
-    return send(Wire, address, toSend, 3);
+    // return yell(address, toSend, 3);
+    return false;
 } 
 // GPS UTC Time (year, month, day, hour, minutes, second)
 bool LRC::setUTCTime() {
@@ -241,7 +245,8 @@ bool LRC::setUTCTime() {
     toSend[3] = toBytes(data.gps.time.hour);
     toSend[4] = toBytes(data.gps.time.minute);
     toSend[5] = toBytes(data.gps.time.second);
-    return send(Wire, address, toSend, 6);
+    // return yell(address, toSend, 6);
+    return false;
 }
 bool LRC::setSIV() {
     Wire.begin(address);
@@ -255,5 +260,6 @@ bool LRC::setAtmoData() {
     toSend[1] = toBytes(data.atmo.temperature);
     toSend[2] = toBytes(data.atmo.alt);
     toSend[3] = toBytes(data.atmo.humidity);
-    return send(Wire, address, toSend, 3);
+    // return yell(address, toSend, 3);
+    return false;
 }

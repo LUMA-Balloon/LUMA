@@ -10,7 +10,7 @@ int ventLED = 16;
 int dropLED = 17;
 
 
-void RxHandler(int numBytes){  // ! Won't we have to also check to see if it is a state request so we can return the current state?
+void RxHandler(int numBytes){ 
   byte RxByte;
   while(Wire.available()){
     RxByte = Wire.read();
@@ -34,7 +34,7 @@ void RxHandler(int numBytes){  // ! Won't we have to also check to see if it is 
 
   // Testing stuff for I2C
   digitalWrite(LED_BUILTIN, HIGH);
-  delay(500);
+  delay(100);
   digitalWrite(LED_BUILTIN, LOW);
 }
 
@@ -44,6 +44,7 @@ void TxHandler(void){
 }
 
 void setup() {
+  Serial.begin(9600);
   Wire.begin(VENT_DROP);
   //Wire.begin(0x69);
   Wire.onReceive(RxHandler);
@@ -53,7 +54,7 @@ void setup() {
   pinMode(dropLED, OUTPUT);
 }
 
-void loop(){
+void loop() {
   bool ventState = ventStateGlobal;
   bool dropState = dropStateGlobal;
 
