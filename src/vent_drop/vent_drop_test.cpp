@@ -119,6 +119,8 @@ void TxHandler(void){
 // Servo testing
 const int dropEnable = 8;
 const int dropServoPin = 7;
+const int ventEnable = 11;
+const int ventServoPin = 10;
 
 Servo myServo;
 int pos;
@@ -126,10 +128,15 @@ int pos;
 
 void setup() {
 
-  pinMode(dropEnable, OUTPUT);
-  pinMode(dropServoPin, OUTPUT);
+  // pinMode(dropEnable, OUTPUT);
+  // pinMode(dropServoPin, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
 
+  pinMode(ventEnable, OUTPUT);
+  pinMode(dropEnable, OUTPUT);
+  pinMode(ventServoPin, OUTPUT);
+  pinMode(dropServoPin, OUTPUT);
+  // myServo.attach(dropServoPin);
   myServo.attach(dropServoPin);
   
   pos = 0;
@@ -137,7 +144,8 @@ void setup() {
 
 void loop() {
 
-  digitalWrite(dropEnable, LOW);
+  digitalWrite(dropEnable, HIGH);
+  digitalWrite(ventEnable, HIGH);
   // digitalWrite(LED_BUILTIN, HIGH);
   // for (int i = 0; i < 1023; i++) {
   //   digitalWrite(dropServoPin, i);
@@ -148,12 +156,12 @@ void loop() {
   // digitalWrite(LED_BUILTIN, HIGH);
   // for (int i = 0; i < 1023; i++) {
   //   digitalWrite(dropServoPin, i);
-  //   delay(20);
+  //   delay(1);
   // }
   // digitalWrite(LED_BUILTIN, LOW);
-  // delay(1000);
+  delay(1000);
 
-    for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
+  for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
     // in steps of 1 degree
     myServo.write(pos);              // tell servo to go to position in variable 'pos'
     delay(15);                       // waits 15ms for the servo to reach the position
@@ -163,5 +171,5 @@ void loop() {
     myServo.write(pos);              // tell servo to go to position in variable 'pos'
     delay(15);                       // waits 15ms for the servo to reach the position
   }
-  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(LED_BUILTIN, LOW);
 }
