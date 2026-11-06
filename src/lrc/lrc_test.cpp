@@ -3,11 +3,14 @@
 // 0 for send, 1 for receive
 int a = 0;
 
+void test_lrc();
+bool receive_mode();
 
 // Setup the thingy
 void setup() {
     // this is the baud rate for pico_TNC
     Serial.begin(115200);
+    delay(5000);
 
     // go ahead and turn on the echo so we can see the output (I don't think we need this since we're not reading it)
     Serial.println("ECHO 1");
